@@ -1,0 +1,25 @@
+body{
+    background-color: lightgray;
+}
+
+header{
+    margin: 0 auto;
+    width: fit-content;
+}
+
+#selection{
+    width: 100vw;
+}
+
+
+#forceChoices{
+    display: grid;
+    width: 10em;
+}
+
+#forceChoices > button{
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    margin-left: 5px;
+}

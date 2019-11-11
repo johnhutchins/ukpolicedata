@@ -3,90 +3,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>UK Body Bags</title>
+    <link rel='stylesheet' href='./style.css'>
   </head>
   <body>
 <div>
-    <h2>Welcome to UK Body Bags</h2>
-    <p>What kind of data would you like to see?</p>
-    <!-- allow to choose inputs of different forces-->
+    <header>
+        <h1>Welcome to UK Body Bags</h1>
+    </header>
 
+    <div id='selection'>
+        <button id='showForces'>Show Forces</button>
+        <button id='clearData'></button>
 
-    <button id='showForces'>Show Forces</button>
-
-    <div id='forceChoices'></div>
-
-    <button id='showCrimesCat'></button>
+            <div id='forceChoices'>
+                <div></div>
+                <div></div>
+            </div>
+    </div>  
 </div>   
 
-    <script>
 
-    let forceChoices = document.getElementById('forceChoices')  
-    let showCrimesBut = document.getElementById("showCrimesCat")
-    showCrimesBut.innerText = 'Show Violent Crimes'
-    showCrimesBut.addEventListener('click',showViolentCrimes)
-
-    function showViolentCrimes(data){
-        forceChoices.innerHTML = ''
-        //loop through data to show the crimes here
-        //forceChoices.innerHTML = data[0]
-    }
-
-
-    function showCrimeDetails(){
-        let chosenCrimeId = event.srcElement.id
-        let url = 'https://data.police.uk/api/outcomes-for-crime/' + chosenCrimeId
-        requestAJAX(url,(dat)=>{
-            console.log(dat)
-            console.log(dat.crime.category)
-            forceChoices.innerHTML = ''
-            let crime = document.createElement('p')
-            //crime.innerText = 
-            forceChoices.appendChild(crime)
-        })
-    }
-
-    function showCrimes(){
-        let chosenForce = event.target.innerText
-        let url = 'https://data.police.uk/api/crimes-no-location?category=all-crime&force=' + chosenForce
-        requestAJAX(url,(data)=>{
-            forceChoices.innerHTML = ''
-            for(let j=0;j<data.length;j++){
-                console.log(data[j])
-                let crimeType = document.createElement('p')
-                crimeType.id = data[j].persistent_id
-                crimeType.innerText = data[j].category
-                forceChoices.appendChild(crimeType)
-                crimeType.addEventListener('click',showCrimeDetails)
-            }
-        })
-    }
-
-    function requestForceList(){
-        let url = 'https://data.police.uk/api/forces'
-        requestAJAX(url,(forces)=>{
-            forces.forEach((force)=>{
-                let forceButton = document.createElement('button')
-                forceButton.innerText = force.id
-                forceButton.addEventListener('click',showCrimes)
-                forceChoices.appendChild(forceButton)
-            })
-        })
-    }
-
-    //https://data.police.uk/api/forces
-    let showForces = document.getElementById('showForces')
-    showForces.addEventListener('click',requestForceList)
-
-    function requestAJAX(url, callback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                callback(JSON.parse(xhr.responseText))
-            }
-        }
-        xhr.open('GET', url, true)
-        xhr.send()
-    }
-    </script>
-  </body>
+<script src='./main.js'></script>
+</body>
 </html>

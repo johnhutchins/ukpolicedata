@@ -82,10 +82,13 @@ function getPriorities(){
     let hoodKeys = Object.keys(hoodObj)
 
     if(hoodKeys.includes(chosenHood)){
-        //build url to get new stuff here.
-        //NEED neighborhood name
-        //NEED neighborhood ID
-        console.log()
+        //need to get the name of the neighboorhood.
+        let hoodId = hoodObj[chosenHood]
+        console.log(hoodId)
+
+        //url should look like: https://data.police.uk/api/gwent/CC85/priorities
+        //ie let url = BASE_URL + chosenHood + '/' + hoodId + '/priorities'
+
     }
 
 }

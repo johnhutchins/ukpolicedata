@@ -11,7 +11,6 @@ header{
     width: 100vw;
 }
 
-
 #forceChoices{
     display: grid;
     width: 10em;
@@ -22,4 +21,12 @@ header{
     color: white;
     padding: 5px;
     margin-left: 5px;
+}
+
+.no-display{
+    display: none;
+}
+
+.location{
+    color:white;
 }

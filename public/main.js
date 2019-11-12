@@ -5,12 +5,9 @@ let clearDataButton = document.getElementById("clearData")
 clearDataButton.innerText = 'Clear Data'
 clearDataButton.addEventListener('click',clearData)
 
-function clearData(data){
+function clearData(){
     forceChoices.innerHTML = ''
-    //loop through data to show the crimes here
-    //forceChoices.innerHTML = data[0]
 }
-
 
 function showCrimeDetails(){
     let chosenCrimeId = event.srcElement.id
@@ -26,11 +23,23 @@ function showCrimeDetails(){
 function showCrimes(){
     let chosenForce = event.target.innerText
     let url =  BASE_URL + 'crimes-no-location?category=all-crime&force=' + chosenForce
+    let forces = document.getElementsByClassName('location')
+    loc = event.target.innerText
+    //remove forces
+    for(let k=0;k<forces.length;k++){
+        forces[k].classList += ' no-display'
+    }
+    let prioritiesButton = document.createElement('button')
+    prioritiesButton.classList += 'prioritiesButton'
+    prioritiesButton.innerText = 'Show Priorities'
+    forceChoices.append(prioritiesButton)
+    prioritiesButton.addEventListener('click',showNeighborhoods)
     requestAJAX(url,(data)=>{
-        forceChoices.innerHTML = ''
+        let prioritiesButton = document.createElement('button')
+        prioritiesButton.addEventListener('click',getPriorities)
         for(let j=0;j<data.length;j++){
-            console.log(data[j])
-            let crimeType = document.createElement('p')
+            let crimeType = document.createElement('button')
+            crimeType.classList += 'crimeCat'
             crimeType.id = data[j].persistent_id
             crimeType.innerText = data[j].category
             forceChoices.appendChild(crimeType)
@@ -39,19 +48,34 @@ function showCrimes(){
     })
 }
 
+function showNeighborhoods(){
+    console.log("should find neighbordhood here somewhere")
+    //using global var loc, you can find each neighborhood
+    let neighbordhoodUrl = BASE_URL + '/' + loc + '/neighbourhoods'
+    requestAJAX(neighbordhoodUrl,(hood)=>{
+        console.log(hood)
+    })
+}
+
 //https://data.police.uk/api/leicestershire/neighbourhoods
 function getNeigborhood(){
     let neighborhood
     let url = BASE_URL + ''
+
 }
 
+function getPriorities(){
 
+}
+
+//GET NEIGHBORHOOD
 function requestForceList(){
     let url = BASE_URL + 'forces'
     requestAJAX(url,(forces)=>{
         forces.forEach((force)=>{
             let forceButton = document.createElement('button')
             forceButton.innerText = force.id
+            forceButton.classList += 'location'
             forceButton.addEventListener('click',showCrimes)
             forceChoices.appendChild(forceButton)
         })

@@ -1,5 +1,7 @@
 const BASE_URL = 'https://data.police.uk/api/'
 
+let neighborhoods = []
+
 let forceChoices = document.getElementById('forceChoices')  
 let clearDataButton = document.getElementById("clearData")
 clearDataButton.innerText = 'Clear Data'
@@ -13,7 +15,7 @@ function showCrimeDetails(){
     let chosenCrimeId = event.srcElement.id
     let url = BASE_URL + 'outcomes-for-crime/' + chosenCrimeId
     requestAJAX(url,(dat)=>{
-        console.log(dat)
+        //console.log(dat)
         forceChoices.innerHTML = ''
         let crime = document.createElement('p')
         forceChoices.appendChild(crime)
@@ -48,23 +50,43 @@ function showCrimes(){
     })
 }
 
+let hoodObj = {}
+let hoodIds = []
 function showNeighborhoods(){
-    console.log("should find neighbordhood here somewhere")
     //using global var loc, you can find each neighborhood
     let neighbordhoodUrl = BASE_URL + '/' + loc + '/neighbourhoods'
-    requestAJAX(neighbordhoodUrl,(hood)=>{
-        console.log(hood)
+    forceChoices.innerHTML = ''
+    requestAJAX(neighbordhoodUrl,(hoods)=>{    
+        for(let x=0;x<hoods.length;x++){
+            let neighborhoodButton = document.createElement('button')
+            neighborhoodButton.innerText = hoods[x].name
+            neighborhoodButton.addEventListener('click',getPriorities)
+
+            //TODO need to add this as an object within the "name" of the neigborhood
+            let newObj = hoods[x].name
+            //TODO below might need to be the resolution.
+            //newObj[hoods[x].name] = hoods[x].id
+
+            hoodIds.push(hoods[x].id)
+
+            hoodObj[hoods[x].name] = hoods[x].id
+            
+
+            forceChoices.appendChild(neighborhoodButton)
+        }
     })
 }
 
-//https://data.police.uk/api/leicestershire/neighbourhoods
-function getNeigborhood(){
-    let neighborhood
-    let url = BASE_URL + ''
-
-}
-
 function getPriorities(){
+    let chosenHood = event.target.innerText
+    let hoodKeys = Object.keys(hoodObj)
+
+    if(hoodKeys.includes(chosenHood)){
+        //build url to get new stuff here.
+        //NEED neighborhood name
+        //NEED neighborhood ID
+        console.log()
+    }
 
 }
 

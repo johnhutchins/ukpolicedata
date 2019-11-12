@@ -63,15 +63,8 @@ function showNeighborhoods(){
             neighborhoodButton.addEventListener('click',getPriorities)
 
             //TODO need to add this as an object within the "name" of the neigborhood
-            let newObj = hoods[x].name
-            //TODO below might need to be the resolution.
-            //newObj[hoods[x].name] = hoods[x].id
-
             hoodIds.push(hoods[x].id)
-
             hoodObj[hoods[x].name] = hoods[x].id
-            
-
             forceChoices.appendChild(neighborhoodButton)
         }
     })
@@ -82,18 +75,22 @@ function getPriorities(){
     let hoodKeys = Object.keys(hoodObj)
 
     if(hoodKeys.includes(chosenHood)){
-        //need to get the name of the neighboorhood.
         let hoodId = hoodObj[chosenHood]
-        console.log(hoodId)
-
         //url should look like: https://data.police.uk/api/gwent/CC85/priorities
-        //ie let url = BASE_URL + chosenHood + '/' + hoodId + '/priorities'
-
+        let url = BASE_URL + loc + '/' + hoodId + '/priorities'
+        console.log(url)
+        forceChoices.innerHTML = ''
+        requestAJAX(url,(data)=>{
+            for(let z=0;z<data.length;z++){
+                var parser = new DOMParser()
+                var doc = parser.parseFromString(data[z].action, "text/html")
+                forceChoices.appendChild(doc.documentElement)
+                //search through elements to apply styles to them.
+            }
+        })
     }
-
 }
 
-//GET NEIGHBORHOOD
 function requestForceList(){
     let url = BASE_URL + 'forces'
     requestAJAX(url,(forces)=>{

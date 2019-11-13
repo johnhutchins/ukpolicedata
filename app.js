@@ -1,4 +1,4 @@
-const express = require('express')
+/* const express = require('express')
 const app = express()
 const path = require('path')
 const port = process.env.PORT || 5000
@@ -7,6 +7,6 @@ const port = process.env.PORT || 5000
 app.use(express.static('public'))
 app.use(express.static(path.join(__dirname,'/public')))
 
-app.use('/ukData', (req,res)=>{
-    res.send('/ukData.html')
-})
+ app.use('/public', (req,res)=>{
+    res.send('/ukData')
+})  */

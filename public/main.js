@@ -81,9 +81,9 @@ function getPriorities(){
         forceChoices.innerHTML = ''
         requestAJAX(url,(data)=>{
             let fragment = new DocumentFragment()
-            var parser = new DOMParser()
+            let parser = new DOMParser()
             for(let z=0;z<data.length;z++){
-                var doc = parser.parseFromString(data[z].action, "text/html")
+                let doc = parser.parseFromString(data[z].action, "text/html")
                 let elem = doc.body.children
                 for(let n=0;n<elem.length;n++){
                     fragment.appendChild(elem[n])

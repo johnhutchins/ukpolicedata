@@ -81,12 +81,13 @@ function getPriorities(){
         console.log(url)
         forceChoices.innerHTML = ''
         requestAJAX(url,(data)=>{
+            let fragment = new DocumentFragment()
             for(let z=0;z<data.length;z++){
                 var parser = new DOMParser()
                 var doc = parser.parseFromString(data[z].action, "text/html")
-                forceChoices.appendChild(doc.documentElement)
-                //search through elements to apply styles to them.
+                fragment.appendChild(doc.documentElement)
             }
+            forceChoices.appendChild(fragment)
         })
     }
 }

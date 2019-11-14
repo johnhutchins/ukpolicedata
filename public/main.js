@@ -80,15 +80,14 @@ function getPriorities(){
         let url = BASE_URL + loc + '/' + hoodId + '/priorities'
         forceChoices.innerHTML = ''
         requestAJAX(url,(data)=>{
-            console.log(data)
             let fragment = new DocumentFragment()
             var parser = new DOMParser()
-
-            //get action below, but also need to get issue as well
             for(let z=0;z<data.length;z++){
                 var doc = parser.parseFromString(data[z].action, "text/html")
-                console.log(data[z].action)
-                fragment.appendChild(doc.documentElement)
+                let elem = doc.body.children
+                for(let n=0;n<elem.length;n++){
+                    fragment.appendChild(elem[n])
+                }
             }
             forceChoices.appendChild(fragment)
         })

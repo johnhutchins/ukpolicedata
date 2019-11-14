@@ -78,13 +78,16 @@ function getPriorities(){
         let hoodId = hoodObj[chosenHood]
         //url should look like: https://data.police.uk/api/gwent/CC85/priorities
         let url = BASE_URL + loc + '/' + hoodId + '/priorities'
-        console.log(url)
         forceChoices.innerHTML = ''
         requestAJAX(url,(data)=>{
+            console.log(data)
             let fragment = new DocumentFragment()
+            var parser = new DOMParser()
+
+            //get action below, but also need to get issue as well
             for(let z=0;z<data.length;z++){
-                var parser = new DOMParser()
                 var doc = parser.parseFromString(data[z].action, "text/html")
+                console.log(data[z].action)
                 fragment.appendChild(doc.documentElement)
             }
             forceChoices.appendChild(fragment)
